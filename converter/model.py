@@ -7,8 +7,8 @@ User = get_user_model()
 class Conversion(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
-    from_currency = models.CharField(max_length=50)   # e.g., 'bitcoin'
-    to_currency = models.CharField(max_length=20)     # e.g., 'usd' or 'ethereum'
+    from_currency = models.CharField(max_length=50)  
+    to_currency = models.CharField(max_length=20)    
     from_amount = models.FloatField()
     to_amount = models.FloatField()
     raw_rate = models.FloatField()
