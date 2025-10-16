@@ -1,0 +1,57 @@
+<!-- templates/converter/index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Crypto Converter</title>
+  <link href="https://cdn.jsdelivr.net/npm/mini.css@3.0.1/dist/mini-default.min.css" rel="stylesheet">
+  <style>
+    .container { max-width: 920px; margin: 2rem auto; padding: 1rem; }
+    .history { margin-top: 1rem; }
+    @media (max-width:600px){ .row { flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h3>Crypto ⇄ Fiat Converter</h3>
+      <div>
+        {% if user.is_authenticated %}
+          Hello, {{ user.username }} | <a href="{% url 'logout' %}?next=/">Logout</a>
+        {% else %}
+          <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+      </div>
+    </header>
+
+    <section>
+      <form id="convertForm">
+        <div class="row">
+          <div class="col-sm-6">
+            <label>From (coin id or symbol):</label>
+            <input id="from_currency" name="from_currency" placeholder="bitcoin" required>
+          </div>
+          <div class="col-sm-3">
+            <label>Amount</label>
+            <input id="amount" name="amount" type="number" step="any" value="1" required>
+          </div>
+          <div class="col-sm-3">
+            <label>To (currency):</label>
+            <input id="to_currency" name="to_currency" placeholder="usd" required>
+          </div>
+        </div>
+        <br>
+        <button class="primary" type="submit">Convert</button>
+      </form>
+
+      <div id="result" style="margin-top:1rem;"></div>
+
+      <h4>Recent conversions</h4>
+      <div id="history" class="history"></div>
+    </section>
+  </div>
+
+  <script src="{% static 'converter/js/app.js' %}"></script>
+</body>
+</html>
